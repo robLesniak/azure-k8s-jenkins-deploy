@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: whoamiapp
-        image: {Azure Container Registry link} / {name:tag}
+        image: pythonexamapp.azurecr.io/whoami:1.0.0
       imagePullSecrets:
       - name: acr-auth
 ---

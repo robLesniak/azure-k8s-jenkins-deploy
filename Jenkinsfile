@@ -1,9 +1,9 @@
 node {
-  def acr = 'azure-conteiner-registry image-link'
-  def appName = 'whoamiapp'
+  def acr = 'pythonexamapp.azurecr.io'
+  def appName = 'whoami'
   def imageName = "${acr}/${appName}"
   def imageTag = "${imageName}:${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
-  def appRepo = "azure-conteiner-registry image-link / image:tag"
+  def appRepo = "pythonexamapp.azurecr.io/whoami:1.0.0"
  
   checkout scm
  
@@ -12,7 +12,7 @@ node {
    app = docker.build("${imageName}")
    withDockerRegistry([credentialsId: 'acr_auth', url: "https://${acr}"]) {
       app.push("${env.BRANCH_NAME}.${env.BUILD_NUMBER}")
-                }
+      }
   }
  
  
