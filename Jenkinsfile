@@ -38,8 +38,8 @@ node {
         withCredentials([usernamePassword(credentialsId: 'acr_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
           sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n prod get secret acr-auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=prod create secret docker-registry acr-auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
         }
-        sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/production/*.yml")
-        sh("sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=prod apply -f k8s/production/")
+        sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/canary/*.yml")
+        sh("sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=prod apply -f k8s/canary/")
         sh("echo http://`kubectl --namespace=prod get service/${appName} --output=json | jq -r '.status.loadBalancer.ingress[0].ip'` > ${appName}")
         break
      }
