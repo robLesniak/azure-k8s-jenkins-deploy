@@ -19,10 +19,7 @@ node {
  stage ("Deploy Application on Azure Kubernetes Service")
  {
   switch (env.BRANCH_NAME) {
-    // Roll out to canary environment
-    
- 
-    // Roll out to production
+
     // changed ns name from production to master
     case "master":
         // Change deployed image in master to the one we just built
