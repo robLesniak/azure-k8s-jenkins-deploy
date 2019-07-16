@@ -1,7 +1,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: whoamiapp
+  name: whoami
 spec:
   replicas: 1
   selector:
@@ -9,13 +9,13 @@ spec:
       app: whoami
   template:
     metadata:
-      name: whoamiapp
+      name: whoami
       labels:
         app: whoami
         env: canary
     spec:
       containers:
-      - name: whoamiapp
+      - name: whoami
         image: pythonexamapp.azurecr.io/whoami:1.0.0
       imagePullSecrets:
       - name: acr-auth
@@ -23,9 +23,9 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: whoamiapp
+  name: whoami
   labels:
-    name: whoamiapp
+    name: whoami
 spec:
   type: LoadBalancer
   ports:
