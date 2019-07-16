@@ -18,7 +18,7 @@ spec:
       - name: whoamiapp
         image: pythonexamapp.azurecr.io/whoami:1.0.0
       imagePullSecrets:
-      - name: acr-auth
+      - name: acr_auth
 ---
 kind: Service
 apiVersion: v1

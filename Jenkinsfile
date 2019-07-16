@@ -24,7 +24,7 @@ node {
         // Change deployed image in canary to the one we just built
          sh("sudo kubectl --kubeconfig ~jenkins/.kube/config get ns ${appName}-${env.BRANCH_NAME} || sudo kubectl --kubeconfig ~jenkins/.kube/config create ns ${appName}-${env.BRANCH_NAME}")
         withCredentials([usernamePassword(credentialsId: 'acr_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr-auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr-auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
+          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr_auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr_auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
         }
         sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/production/*.yml")
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/production/")
@@ -37,7 +37,7 @@ node {
         // Change deployed image in master to the one we just built
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config get ns ${appName}-${env.BRANCH_NAME} || sudo kubectl --kubeconfig ~jenkins/.kube/config create ns ${appName}-${env.BRANCH_NAME}")
         withCredentials([usernamePassword(credentialsId: 'acr_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr-auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr-auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
+          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr_auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr_auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
         }
         sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/production/*.yml")
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/production/")
@@ -48,7 +48,7 @@ node {
         // Change deployed image in master to the one we just built
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config get ns ${appName}-${env.BRANCH_NAME} || sudo kubectl --kubeconfig ~jenkins/.kube/config create ns ${appName}-${env.BRANCH_NAME}")
         withCredentials([usernamePassword(credentialsId: 'acr_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr-auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr-auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
+          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr_auth || sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr_auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
         }
         sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/stage/*.yml")
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/stage/")
@@ -60,7 +60,7 @@ node {
         // Create namespace if it doesn't exist
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config get ns ${appName}-${env.BRANCH_NAME} || kubectl create ns ${appName}-${env.BRANCH_NAME}")
         withCredentials([usernamePassword(credentialsId: 'acr_auth', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr-auth || kubectl --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr-auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
+          sh "sudo kubectl --kubeconfig ~jenkins/.kube/config -n ${appName}-${env.BRANCH_NAME} get secret acr_auth || kubectl --namespace=${appName}-${env.BRANCH_NAME} create secret docker-registry acr_auth --docker-server ${acr} --docker-username $USERNAME --docker-password $PASSWORD"
         }  
         sh("sed -i.bak 's#${appRepo}#${imageTag}#' ./k8s/dev/*.yml")
         sh("sudo kubectl --kubeconfig ~jenkins/.kube/config --namespace=${appName}-${env.BRANCH_NAME} apply -f k8s/dev/")
