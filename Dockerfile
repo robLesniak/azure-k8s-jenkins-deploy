@@ -1,5 +1,5 @@
 FROM python:3.6.2
-ADD /whoami /
+ADD /app /
 RUN pip install -r requirements.txt
 EXPOSE 5000
 ENTRYPOINT ["python"]
